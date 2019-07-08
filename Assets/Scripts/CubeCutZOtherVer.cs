@@ -64,8 +64,10 @@ public class CubeCutZOtherVer : MonoBehaviour
         //if victim over than middle point toward back
         if (victim.position.z < middlePoint.transform.position.z)
         {
+            //Purfect front side
+            Vector3 rightVictimPoint = victim.position + Vector3.back * victim.localScale.z / 2;
             purfectFront = true;
-            if (victim.position.z > middlePoint.transform.position.z - 0.2f && purfectFront)
+            if (rightVictimPoint.z > middlePoint.transform.position.z - 0.2f && purfectFront)
             {
                 cube = GameObject.Find("Cube");
                 Destroy(cube);
@@ -103,6 +105,7 @@ public class CubeCutZOtherVer : MonoBehaviour
                 cubeCutFrontPos.transform.position += temp;
                 cubeCutBackPos.transform.position += temp;
             }
+            //Not Purfect
             else
             {
                 //Change name object
@@ -136,12 +139,16 @@ public class CubeCutZOtherVer : MonoBehaviour
         //if victim over than middle point toward front
         if (victim.position.z > middlePoint.transform.position.z)
         {
+            //Purfect back side
+            Vector3 leftVictimPoint = victim.position - Vector3.back * victim.localScale.z / 2;
             purfectBack = true;
-            if (victim.position.z < middlePoint.transform.position.z + 0.2f && purfectBack)
+
+            //if (victim.position.z < middlePoint.transform.position.z + 0.2f && purfectBack)
+            if (leftVictimPoint.z < middlePoint.transform.position.z + 0.2f && purfectBack)
             {
                 cube = GameObject.Find("Cube");
                 Destroy(cube);
-                Debug.Log("Purrrfectback");
+                Debug.Log("Purrrfect back side");
 
 
                 //Transform position Middle Point Object
@@ -174,6 +181,7 @@ public class CubeCutZOtherVer : MonoBehaviour
                 cubeCutFrontPos.transform.position += temp;
                 cubeCutBackPos.transform.position += temp;
             }
+            //Not Purfect
             else
             {
                 //Change name object

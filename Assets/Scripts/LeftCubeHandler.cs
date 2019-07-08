@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class LeftCubeHandler : MonoBehaviour
 {
+    public float speed = 5;
+    private bool dirRight = true;
+    private bool moving = true;
 
     Rigidbody rB;
     GameObject cutItRight;
     GameObject cutItLeft;
     GameObject cameraObj;
     CameraHandler cameraHandler;
-
-    public float speed = 5;
-    private bool dirRight = true;
-    private bool moving = true;
-
     Vector3 rightPoint;
     Vector3 leftPoint;
 

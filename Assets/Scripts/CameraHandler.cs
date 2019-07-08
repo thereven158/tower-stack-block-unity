@@ -5,17 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class CameraHandler : MonoBehaviour
 {
-     
-    private Vector3 temp;
+
+    private Vector3 _tempStart;
+    private Vector3 _tempEnd;
     bool gameNotPlayed = true;
 
     public GameObject ButtonStart;
     public GameObject ButtonRetry;
 
+    // Transforms to act as start and end markers for the journey.
+    public Transform EndMarker;
+
+    // Movement speed in units/sec.
+    public float Speed = 1.0F;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        temp = this.transform.localPosition;
+        _tempEnd = EndMarker.transform.localPosition;
         ButtonRetry.SetActive(false);
         NotPlaying();
     }
@@ -26,16 +34,29 @@ public class CameraHandler : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             if (gameNotPlayed) return;
+
             CameraGoesUp();
         }
-        
+
+        // Move our position a step closer to the target.
+        float step = Speed * Time.deltaTime; // calculate distance to move
+        transform.position = Vector3.MoveTowards(transform.position, EndMarker.position, step);
     }
     
     void CameraGoesUp()
     {
-        temp.y = (this.transform.localPosition.y + 1.02f);
+        //_temp.y = (this.transform.localPosition.y + 1.02f);
 
-        this.transform.localPosition = temp;
+        //this.transform.localPosition = _temp;
+
+        _tempEnd.y = (EndMarker.transform.localPosition.y + 1.02f);
+
+        EndMarker.transform.localPosition = _tempEnd;
+    }
+
+    void CameraGoesUpSlowly()
+    {
+        
     }
 
     public void NotPlaying()

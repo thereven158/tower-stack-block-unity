@@ -5,11 +5,26 @@ using UnityEngine;
 public class ColorChanges : MonoBehaviour
 {
     float hue;
+    float saturation;
+    float value;
+
+    public GameObject ObjOutOfBound;
+    float GetCurrentHue;
+
+    Renderer rend;
 
     // Start is called before the first frame update
     void Start()
     {
-        hue = 0.01f;
+        ObjOutOfBound = GameObject.Find("OutOfBound");
+        OutOfBound outOfBound = ObjOutOfBound.GetComponent<OutOfBound>();
+        GetCurrentHue = outOfBound.Hue;
+
+        hue = GetCurrentHue;
+        saturation = 0.6f;
+        value = 0.9f;
+        rend = GetComponent<Renderer>();
+        //rend.material.color = Random.ColorHSV(hue, 1f, 0.6f, 0.6f, 0.9f, 0.9f);
     }
 
     // Update is called once per frame
@@ -17,8 +32,9 @@ public class ColorChanges : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            hue += 0.01f;
-            GetComponent<Renderer>().material.color = Random.ColorHSV(hue, 1f, 0.59f, 0.59f, 0.95f, 0.95f);
+            hue += 0.02f;
+            //rend.material.color = Random.ColorHSV(hue, hue, 0.59f, 0.59f, 0.95f, 0.95f);
+            rend.material.color = Color.HSVToRGB(hue, saturation, value);
         }
     }
 }

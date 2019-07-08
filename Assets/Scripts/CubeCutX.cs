@@ -9,8 +9,8 @@ public class CubeCutX : MonoBehaviour
     Vector3 temp;
     Vector3 rightSpawnCube;
     Vector3 middleTemp;
-    GameObject cubeCutRightPos;
-    GameObject cubeCutLeftPos;
+    GameObject cubeCutRightPosition;
+    GameObject cubeCutLeftPosition;
     GameObject middlePoint;
     GameObject getText;
 
@@ -21,32 +21,24 @@ public class CubeCutX : MonoBehaviour
     string highScoreKey = "HighScore";
 
     public GameObject ButtonRetry;
-    bool getCut = false;
 
     void Start()
     {
         temp = this.transform.localPosition;
-        cubeCutRightPos = GameObject.Find("CutItRight");
-        cubeCutLeftPos = GameObject.Find("CutItLeft");
+        cubeCutRightPosition = GameObject.Find("CutItRight");
+        cubeCutLeftPosition = GameObject.Find("CutItLeft");
         middlePoint = GameObject.Find("MiddlePoint");
 
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
 
         Vector3 tempStart = new Vector3(0, 0.5f, 0);
-        cubeCutLeftPos.transform.position += tempStart;
-        cubeCutRightPos.transform.position += tempStart;
+        cubeCutLeftPosition.transform.position += tempStart;
+        cubeCutRightPosition.transform.position += tempStart;
     }
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (!getCut)
-        //    {
-        //        Time.timeScale = 0f;
-        //        ButtonRetry.SetActive(true);
-        //    }
-        //}
+
     }
 
     public void Cut(Transform victim, Vector3 _pos)
@@ -97,10 +89,10 @@ public class CubeCutX : MonoBehaviour
             clone.AddComponent<ColorChanges>();
             rigidLeft.constraints = RigidbodyConstraints.FreezeAll;
 
-            cubeCutLeftPos.transform.position = leftSideObj.transform.position - leftSideObj.transform.right * leftSideObj.transform.localScale.x / 2;
+            cubeCutLeftPosition.transform.position = leftSideObj.transform.position - leftSideObj.transform.right * leftSideObj.transform.localScale.x / 2;
             Vector3 temp = new Vector3(0, 2f, 0);
-            cubeCutLeftPos.transform.position += temp;
-            cubeCutRightPos.transform.position += temp;
+            cubeCutLeftPosition.transform.position += temp;
+            cubeCutRightPosition.transform.position += temp;
         }
         if (victim.position.x < middlePoint.transform.position.x)
         {
@@ -120,10 +112,10 @@ public class CubeCutX : MonoBehaviour
             clone.AddComponent<ColorChanges>();
             rigidRight.constraints = RigidbodyConstraints.FreezeAll;
 
-            cubeCutRightPos.transform.position = rightSideObj.transform.position + rightSideObj.transform.right * rightSideObj.transform.localScale.x / 2;
+            cubeCutRightPosition.transform.position = rightSideObj.transform.position + rightSideObj.transform.right * rightSideObj.transform.localScale.x / 2;
             Vector3 temp = new Vector3(0, 2f, 0);
-            cubeCutRightPos.transform.position += temp;
-            cubeCutLeftPos.transform.position += temp;
+            cubeCutRightPosition.transform.position += temp;
+            cubeCutLeftPosition.transform.position += temp;
         }
         
 
@@ -145,8 +137,6 @@ public class CubeCutX : MonoBehaviour
 
         if (target.transform.name == ("LeftCube"))
         {
-            getCut = true;
-
             counter++;
             Score.text = counter + "";
 

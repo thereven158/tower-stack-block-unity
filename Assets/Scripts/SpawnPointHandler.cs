@@ -7,11 +7,12 @@ public class SpawnPointHandler : MonoBehaviour
 
     public GameObject LeftCube;
     public GameObject RightCube;
+    private bool _summonLeft = true;
 
     Transform spawnLeft, spawnRight;
     Vector3 tempLeft, tempRight;
 
-    private bool summonLeft = true;
+    
 
 
     // Start is called before the first frame update
@@ -29,18 +30,6 @@ public class SpawnPointHandler : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(summonLeft)
-            {
-                //SpawnMoved();
-                //SpawnCubeLeft();
-                summonLeft = false;
-            }
-            else
-            {
-                //SpawnMoved();
-               // SpawnCubeRight();
-                summonLeft = true;
-            }
             
         }
     }

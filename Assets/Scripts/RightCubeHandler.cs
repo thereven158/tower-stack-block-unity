@@ -6,8 +6,8 @@ public class RightCubeHandler : MonoBehaviour
 {
 
     public float speed = 5;
-    private bool dirLeft = true;
-    private bool moving = true;
+    private bool _dirLeft = true;
+    private bool _moving = true;
 
     Rigidbody rB;
     GameObject cutItBack;
@@ -54,10 +54,10 @@ public class RightCubeHandler : MonoBehaviour
 
     void Moving()
     {
-        if (moving)
+        if (_moving)
         {
             //back and forth
-            if (dirLeft)
+            if (_dirLeft)
             {
                 transform.Translate(Vector3.back * Time.deltaTime * speed);
             }
@@ -68,12 +68,12 @@ public class RightCubeHandler : MonoBehaviour
 
             if (transform.position.z > 9.6f)
             {
-                dirLeft = true;
+                _dirLeft = true;
             }
 
             if (transform.position.z < -0.5f)
             {
-                dirLeft = false;
+                _dirLeft = false;
             }
         }
         else
@@ -88,7 +88,7 @@ public class RightCubeHandler : MonoBehaviour
         rB.constraints = RigidbodyConstraints.FreezeAll;
         rB.isKinematic = false;
 
-        moving = false;
+        _moving = false;
     }
 
     

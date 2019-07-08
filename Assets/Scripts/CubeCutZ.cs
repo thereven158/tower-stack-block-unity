@@ -9,8 +9,8 @@ public class CubeCutZ : MonoBehaviour
     Vector3 temp;
     Vector3 middleTemp;
     Vector3 leftSpawnCube;
-    GameObject cubeCutFrontPos;
-    GameObject cubeCutBackPos;
+    GameObject cubeCutFrontPosition;
+    GameObject cubeCutBackPosition;
     GameObject middlePoint;
     GameObject getText;
 
@@ -21,28 +21,20 @@ public class CubeCutZ : MonoBehaviour
     string highScoreKey = "HighScore";
 
     public GameObject ButtonRetry;
-    bool getCut = false;
 
 
     void Start()
     {
         temp = this.transform.localPosition;
-        cubeCutFrontPos = GameObject.Find("CutItFront");
-        cubeCutBackPos = GameObject.Find("CutItBack");
+        cubeCutFrontPosition = GameObject.Find("CutItFront");
+        cubeCutBackPosition = GameObject.Find("CutItBack");
         middlePoint = GameObject.Find("MiddlePoint");
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
     }
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    if (!getCut)
-        //    {
-        //        Time.timeScale = 0f;
-        //        ButtonRetry.SetActive(true);
-        //    }
-        //}
+        
     }
 
     public void Cut(Transform victim, Vector3 _pos)
@@ -102,10 +94,10 @@ public class CubeCutZ : MonoBehaviour
             rigidFront.constraints = RigidbodyConstraints.FreezeAll;
 
             //Transform position Cube Cut Back
-            cubeCutFrontPos.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
+            cubeCutFrontPosition.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
             Vector3 temp = new Vector3(0, 2f, 0);
-            cubeCutFrontPos.transform.position += temp;
-            cubeCutBackPos.transform.position += temp;
+            cubeCutFrontPosition.transform.position += temp;
+            cubeCutBackPosition.transform.position += temp;
         }
 
         //if victim over than middle point toward front
@@ -132,10 +124,10 @@ public class CubeCutZ : MonoBehaviour
             rigidBack.constraints = RigidbodyConstraints.FreezeAll;
 
             //Transform position Cube Cut Front
-            cubeCutBackPos.transform.position = backSideObj.transform.position - backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
+            cubeCutBackPosition.transform.position = backSideObj.transform.position - backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
             Vector3 temp = new Vector3(0, 2f, 0);
-            cubeCutBackPos.transform.position += temp;
-            cubeCutFrontPos.transform.position += temp;
+            cubeCutBackPosition.transform.position += temp;
+            cubeCutFrontPosition.transform.position += temp;
         }
 
         //return true;
@@ -156,7 +148,6 @@ public class CubeCutZ : MonoBehaviour
 
         if (target.transform.name == ("RightCube"))
         {
-            getCut = true;
 
             counter++;
             Score.text = counter + "";

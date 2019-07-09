@@ -131,7 +131,7 @@ public class CubeCutZOtherVer : MonoBehaviour
                 frontSideObj.name = "FrontClone";
 
                 //Transform position Middle Point Object
-                middleTemp = new Vector3(frontSideObj.transform.localPosition.x, 0f, frontSideObj.transform.localPosition.z);
+                middleTemp = new Vector3(frontSideObj.transform.localPosition.x, frontSideObj.transform.localPosition.y, frontSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
                 //Set Spawn on left side
@@ -212,7 +212,7 @@ public class CubeCutZOtherVer : MonoBehaviour
                 leftSpawnCube.x = (backSideObj.transform.localPosition.x - 5.06f);
 
                 //Transform position Middle Point Object
-                middleTemp = new Vector3(backSideObj.transform.localPosition.x, 0f, backSideObj.transform.localPosition.z);
+                middleTemp = new Vector3(backSideObj.transform.localPosition.x, backSideObj.transform.localPosition.y, backSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
                 //Clone Object

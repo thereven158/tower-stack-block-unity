@@ -93,7 +93,7 @@ public class CubeCutXOtherVer : MonoBehaviour
                 ShowFloatingText();
 
                 //Transform position Middle Point Object
-                middleTemp = new Vector3(leftSideObj.transform.localPosition.x, 0f, leftSideObj.transform.localPosition.z);
+                middleTemp = new Vector3(leftSideObj.transform.localPosition.x, leftSideObj.transform.localPosition.y, leftSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
                 //custom leftSideObj to perfect size
@@ -129,7 +129,7 @@ public class CubeCutXOtherVer : MonoBehaviour
                 leftSideObj.name = "LeftClone";
 
                 //Transform position Middle Point Object
-                middleTemp = new Vector3(leftSideObj.transform.localPosition.x, 0f, leftSideObj.transform.localPosition.z);
+                middleTemp = new Vector3(leftSideObj.transform.localPosition.x, leftSideObj.transform.localPosition.y, leftSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
                 //Set Spawn on right side
@@ -168,7 +168,7 @@ public class CubeCutXOtherVer : MonoBehaviour
                 rightSideObj.name = "RightClone";
 
                 //Transform position Middle Point Object
-                middleTemp = new Vector3(rightSideObj.transform.localPosition.x, 0f, rightSideObj.transform.localPosition.z);
+                middleTemp = new Vector3(rightSideObj.transform.localPosition.x, rightSideObj.transform.localPosition.y, rightSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
                 //custom rightSideObj to perfect size
@@ -200,7 +200,7 @@ public class CubeCutXOtherVer : MonoBehaviour
                 rightSideObj.name = "RightClone";
 
                 //Transform position Middle Point Object
-                middleTemp = new Vector3(rightSideObj.transform.localPosition.x, 0f, rightSideObj.transform.localPosition.z);
+                middleTemp = new Vector3(rightSideObj.transform.localPosition.x, rightSideObj.transform.localPosition.y, rightSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
                 //Set Spawn on right side

@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class CubeCutZ : MonoBehaviour
 {
 
-    Vector3 temp;
     Vector3 middleTemp;
     Vector3 leftSpawnCube;
     GameObject cubeCutFrontPosition;
@@ -25,7 +24,6 @@ public class CubeCutZ : MonoBehaviour
 
     void Start()
     {
-        temp = this.transform.localPosition;
         cubeCutFrontPosition = GameObject.Find("CutItFront");
         cubeCutBackPosition = GameObject.Find("CutItBack");
         middlePoint = GameObject.Find("MiddlePoint");
@@ -93,7 +91,7 @@ public class CubeCutZ : MonoBehaviour
             clone.AddComponent<ColorChanges>();
             rigidFront.constraints = RigidbodyConstraints.FreezeAll;
 
-            //Transform position Cube Cut Back
+            //Transform position Cube Cut Z
             cubeCutFrontPosition.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
             Vector3 temp = new Vector3(0, 2f, 0);
             cubeCutFrontPosition.transform.position += temp;
@@ -123,7 +121,7 @@ public class CubeCutZ : MonoBehaviour
             clone.AddComponent<ColorChanges>();
             rigidBack.constraints = RigidbodyConstraints.FreezeAll;
 
-            //Transform position Cube Cut Front
+            //Transform position Cube Cut Z
             cubeCutBackPosition.transform.position = backSideObj.transform.position - backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
             Vector3 temp = new Vector3(0, 2f, 0);
             cubeCutBackPosition.transform.position += temp;
@@ -146,6 +144,7 @@ public class CubeCutZ : MonoBehaviour
             PlayerPrefs.Save();
         }
 
+        //Get Cut
         if (target.transform.name == ("RightCube"))
         {
 

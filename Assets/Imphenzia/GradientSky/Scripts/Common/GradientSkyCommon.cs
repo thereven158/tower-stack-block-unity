@@ -28,7 +28,7 @@ namespace Imphenzia
         public void Start()
         {
             nextChangeHue = 0.0f;
-            changePerRate = 2f;
+            changePerRate = 3f;
 
             ObjOutOfBound = GameObject.Find("OutOfBound");
             OutOfBound outOfBound = ObjOutOfBound.GetComponent<OutOfBound>();
@@ -60,7 +60,11 @@ namespace Imphenzia
         {
             if (Time.time > nextChangeHue)
             {
-                Debug.Log("Mashok");
+                if(hue > 1f)
+                {
+                    hue = 0.02f;
+                }
+
                 nextChangeHue = Time.time + changePerRate;
                 hue += 0.02f;
 

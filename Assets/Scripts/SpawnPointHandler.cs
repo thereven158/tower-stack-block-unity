@@ -7,7 +7,6 @@ public class SpawnPointHandler : MonoBehaviour
 
     public GameObject LeftCube;
     public GameObject RightCube;
-    private bool _summonLeft = true;
 
     Transform spawnLeft, spawnRight;
     Vector3 tempLeft, tempRight;
@@ -28,10 +27,7 @@ public class SpawnPointHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            
-        }
+        
     }
 
     public void SpawnCubeLeft()

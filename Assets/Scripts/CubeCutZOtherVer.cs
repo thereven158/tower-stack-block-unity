@@ -1,31 +1,48 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CubeCutZOtherVer : MonoBehaviour
 {
+    public GameObject FloatingTextPrefab;
+    GameObject cube;
 
-    Vector3 temp;
     Vector3 middleTemp;
     Vector3 leftSpawnCube;
-    GameObject cubeCutFrontPos;
-    GameObject cubeCutBackPos;
+    GameObject cubeCutFrontPosition;
+    GameObject cubeCutBackPosition;
     GameObject middlePoint;
-    GameObject cube;
+    GameObject getText;
+
+    private string curAmount;
+    int counter;
+    public Text Score;
+    int highScore;
+    string highScoreKey = "HighScore";
+
+    public GameObject ButtonRetry;
+
     bool purfectFront = false;
     bool purfectBack = false;
 
     void Start()
     {
-        temp = this.transform.localPosition;
-        cubeCutFrontPos = GameObject.Find("CutItFront");
-        cubeCutBackPos = GameObject.Find("CutItBack");
+        cubeCutFrontPosition = GameObject.Find("CutItFront");
+        cubeCutBackPosition = GameObject.Find("CutItBack");
         middlePoint = GameObject.Find("MiddlePoint");
+        highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        cube = GameObject.Find("Cube");
     }
 
     void Update()
     {
+        cube = GameObject.Find("Cube");
+    }
 
+    void ShowFloatingText()
+    {
+        Instantiate(FloatingTextPrefab, transform.position, Quaternion.identity);
     }
 
     public void Cut(Transform victim, Vector3 _pos)
@@ -67,18 +84,19 @@ public class CubeCutZOtherVer : MonoBehaviour
             //Purfect front side
             Vector3 rightVictimPoint = victim.position + Vector3.back * victim.localScale.z / 2;
             purfectFront = true;
-            if (rightVictimPoint.z > middlePoint.transform.position.z - 0.2f && purfectFront)
+            //Debug.Log("Mashok Purrrfect front cube");
+            if (rightVictimPoint.z > cubeCutBackPosition.transform.position.z - 0.2f && rightVictimPoint.z < cubeCutBackPosition.transform.position.z && purfectFront)
             {
-                cube = GameObject.Find("Cube");
-                Destroy(cube);
-                Debug.Log("Purrrfect front");
-
+                //Debug.Log("Purrrfect front cube");
+                ShowFloatingText();
 
                 //Transform position Middle Point Object
                 middleTemp = new Vector3(frontSideObj.transform.localPosition.x, frontSideObj.transform.localPosition.y, frontSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
+                //middleTemp = middlePoint.transform.position;
+                //middlePoint.transform.position = middleTemp;
 
-                //Custom frontSideObj
+                //Custom frontSideObj to perfect size
                 frontSideObj.transform.localPosition = middleTemp;
                 frontSideObj.transform.localScale = victimScale;
 
@@ -100,10 +118,10 @@ public class CubeCutZOtherVer : MonoBehaviour
                 rigidFront.constraints = RigidbodyConstraints.FreezeAll;
 
                 //Transform position Cube Cut Back
-                cubeCutFrontPos.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
+                cubeCutFrontPosition.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
                 Vector3 temp = new Vector3(0, 2f, 0);
-                cubeCutFrontPos.transform.position += temp;
-                cubeCutBackPos.transform.position += temp;
+                cubeCutFrontPosition.transform.position += temp;
+                cubeCutBackPosition.transform.position += temp;
             }
             //Not Purfect
             else
@@ -129,11 +147,12 @@ public class CubeCutZOtherVer : MonoBehaviour
                 rigidFront.constraints = RigidbodyConstraints.FreezeAll;
 
                 //Transform position Cube Cut Back
-                cubeCutFrontPos.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
+                cubeCutFrontPosition.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
                 Vector3 temp = new Vector3(0, 2f, 0);
-                cubeCutFrontPos.transform.position += temp;
-                cubeCutBackPos.transform.position += temp;
+                cubeCutFrontPosition.transform.position += temp;
+                cubeCutBackPosition.transform.position += temp;
             }
+            Destroy(cube);
         }
 
         //if victim over than middle point toward front
@@ -142,20 +161,19 @@ public class CubeCutZOtherVer : MonoBehaviour
             //Purfect back side
             Vector3 leftVictimPoint = victim.position - Vector3.back * victim.localScale.z / 2;
             purfectBack = true;
+            //Debug.Log("Mashok Purrrfect back cube");
 
             //if (victim.position.z < middlePoint.transform.position.z + 0.2f && purfectBack)
-            if (leftVictimPoint.z < middlePoint.transform.position.z + 0.2f && purfectBack)
+            if (leftVictimPoint.z < cubeCutFrontPosition.transform.position.z + 0.2f && purfectBack)
             {
-                cube = GameObject.Find("Cube");
-                Destroy(cube);
-                Debug.Log("Purrrfect back side");
-
+                //Debug.Log("Purrrfect back cube");
+                ShowFloatingText();
 
                 //Transform position Middle Point Object
                 middleTemp = new Vector3(backSideObj.transform.localPosition.x, backSideObj.transform.localPosition.y, backSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
 
-                //Custom frontSideObj
+                //Custom backSideObj to perfect size
                 backSideObj.transform.localPosition = middleTemp;
                 backSideObj.transform.localScale = victimScale;
 
@@ -176,10 +194,10 @@ public class CubeCutZOtherVer : MonoBehaviour
                 rigidFront.constraints = RigidbodyConstraints.FreezeAll;
 
                 //Transform position Cube Cut Back
-                cubeCutFrontPos.transform.position = backSideObj.transform.position + backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
+                cubeCutFrontPosition.transform.position = backSideObj.transform.position + backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
                 Vector3 temp = new Vector3(0, 2f, 0);
-                cubeCutFrontPos.transform.position += temp;
-                cubeCutBackPos.transform.position += temp;
+                cubeCutFrontPosition.transform.position += temp;
+                cubeCutBackPosition.transform.position += temp;
             }
             //Not Purfect
             else
@@ -205,10 +223,10 @@ public class CubeCutZOtherVer : MonoBehaviour
                 rigidBack.constraints = RigidbodyConstraints.FreezeAll;
 
                 //Transform position Cube Cut Front
-                cubeCutBackPos.transform.position = backSideObj.transform.position - backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
+                cubeCutBackPosition.transform.position = backSideObj.transform.position - backSideObj.transform.forward * backSideObj.transform.localScale.z / 2;
                 Vector3 temp = new Vector3(0, 2f, 0);
-                cubeCutBackPos.transform.position += temp;
-                cubeCutFrontPos.transform.position += temp;
+                cubeCutBackPosition.transform.position += temp;
+                cubeCutFrontPosition.transform.position += temp;
             }
         }
 
@@ -217,8 +235,24 @@ public class CubeCutZOtherVer : MonoBehaviour
 
     private void OnCollisionEnter(Collision target)
     {
+        //Scoring
+        getText = GameObject.Find("CurrentScore");
+        curAmount = getText.GetComponent<Text>().text;
+        counter = int.Parse(curAmount);
+
+        if (counter > highScore)
+        {
+            PlayerPrefs.SetInt(highScoreKey, counter);
+            PlayerPrefs.Save();
+        }
+
+        //Get Cut
         if (target.transform.name == ("RightCube"))
         {
+
+            counter++;
+            Score.text = counter + "";
+
             Cut(target.transform, transform.position);
         }
     }

@@ -90,6 +90,9 @@ public class CubeCutZOtherVer : MonoBehaviour
                 //Debug.Log("Purrrfect front cube");
                 ShowFloatingText();
 
+                //Destroy back side
+                Destroy(backSideObj);
+
                 //Transform position Middle Point Object
                 middleTemp = new Vector3(frontSideObj.transform.localPosition.x, frontSideObj.transform.localPosition.y, frontSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
@@ -104,6 +107,7 @@ public class CubeCutZOtherVer : MonoBehaviour
                 //Change name object
                 Rigidbody rigidFront = frontSideObj.GetComponent<Rigidbody>();
                 frontSideObj.name = "FrontClone";
+                rigidFront.constraints = RigidbodyConstraints.FreezeAll;
 
                 //Set Spawn on left side
                 leftSpawnCube = frontSideObj.transform.localPosition;
@@ -115,7 +119,7 @@ public class CubeCutZOtherVer : MonoBehaviour
                 clone.name = "LeftCube";
                 clone.AddComponent<LeftCubeHandler>();
                 clone.AddComponent<ColorChanges>();
-                rigidFront.constraints = RigidbodyConstraints.FreezeAll;
+                
 
                 //Transform position Cube Cut Back
                 cubeCutFrontPosition.transform.position = frontSideObj.transform.position + frontSideObj.transform.forward * frontSideObj.transform.localScale.z / 2;
@@ -169,6 +173,9 @@ public class CubeCutZOtherVer : MonoBehaviour
                 //Debug.Log("Purrrfect back cube");
                 ShowFloatingText();
 
+                //Destroy front side
+                Destroy(frontSideObj);
+
                 //Transform position Middle Point Object
                 middleTemp = new Vector3(backSideObj.transform.localPosition.x, backSideObj.transform.localPosition.y, backSideObj.transform.localPosition.z);
                 middlePoint.transform.position = middleTemp;
@@ -205,6 +212,9 @@ public class CubeCutZOtherVer : MonoBehaviour
                 //Change name object
                 Rigidbody rigidBack = backSideObj.GetComponent<Rigidbody>();
                 backSideObj.name = "BackClone";
+
+                Vector3 addPosition = new Vector3(0f, 0f, 0.05f);
+                frontSideObj.transform.position += addPosition;
 
                 //Set Spawn on left side
                 leftSpawnCube = backSideObj.transform.localPosition;

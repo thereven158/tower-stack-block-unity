@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LeaderBoard : MonoBehaviour
+public class WWWFormRegis : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

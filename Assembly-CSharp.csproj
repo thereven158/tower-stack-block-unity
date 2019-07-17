@@ -72,12 +72,14 @@
     <Compile Include="Assets\Scripts\FloatingText.cs" />
     <Compile Include="Assets\Scripts\GameOver.cs" />
     <Compile Include="Assets\Scripts\HighScore.cs" />
-    <Compile Include="Assets\Scripts\LeaderBoard.cs" />
     <Compile Include="Assets\Scripts\LeftCubeHandler.cs" />
     <Compile Include="Assets\Scripts\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\OutOfBound.cs" />
     <Compile Include="Assets\Scripts\RightCubeHandler.cs" />
     <Compile Include="Assets\Scripts\SpawnPointHandler.cs" />
+    <Compile Include="Assets\Scripts\UnityWebRequest\Leaderboard.cs" />
+    <Compile Include="Assets\Scripts\UnityWebRequest\Registration.cs" />
+    <Compile Include="Assets\Scripts\WWWForm\WWWFormRegis.cs" />
     <None Include="Assets\Shaders\S_Skybox.shader" />
     <None Include="Assets\Imphenzia\GradientSky\ReadMe - GradientSky.txt" />
     <None Include="Assets\Imphenzia\GradientSky\Shaders\VertexColorCamera.shader" />

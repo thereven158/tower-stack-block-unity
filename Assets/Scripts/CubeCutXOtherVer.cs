@@ -89,8 +89,11 @@ public class CubeCutXOtherVer : MonoBehaviour
             //Debug.Log("Mashok purrfect left cube");
             if (leftVictimPoint.x < cubeCutRightPosition.transform.position.x + 0.2f && leftVictimPoint.x > cubeCutRightPosition.transform.position.x && purfectLeft)
             {
-                Debug.Log("Purrrfect left cube");
+                //Debug.Log("Purrrfect left cube");
                 ShowFloatingText();
+
+                //Destroy right side
+                Destroy(rightSideObj);
 
                 //Transform position Middle Point Object
                 middleTemp = new Vector3(leftSideObj.transform.localPosition.x, leftSideObj.transform.localPosition.y, leftSideObj.transform.localPosition.z);
@@ -121,6 +124,8 @@ public class CubeCutXOtherVer : MonoBehaviour
                 Vector3 temp = new Vector3(0, 2f, 0);
                 cubeCutLeftPosition.transform.position += temp;
                 cubeCutRightPosition.transform.position += temp;
+                Debug.Log(cubeCutLeftPosition);
+                Debug.Log(cubeCutRightPosition);
             }
             else
             {
@@ -157,11 +162,14 @@ public class CubeCutXOtherVer : MonoBehaviour
             //Purfect left side
             Vector3 rightVictimPoint = victim.position + Vector3.right * victimScale.x / 2; ;
             purfectRight = true;
-            Debug.Log("Mashok purrfect right cube");
+            //Debug.Log("Mashok purrfect right cube");
             if (rightVictimPoint.x > cubeCutRightPosition.transform.position.x - 0.2f && rightVictimPoint.x < cubeCutRightPosition.transform.position.x && purfectRight)
             {
-                Debug.Log("Purrrfect right cube");
+                //Debug.Log("Purrrfect right cube");
                 ShowFloatingText();
+
+                //Destroy left side
+                Destroy(leftSideObj);
 
                 //Change name object
                 Rigidbody rigidRight = rightSideObj.GetComponent<Rigidbody>();

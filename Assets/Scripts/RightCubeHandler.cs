@@ -91,5 +91,9 @@ public class RightCubeHandler : MonoBehaviour
         _moving = false;
     }
 
-    
+    public void RightSpeedIncrease(float speedPlus)
+    {
+        speed = speedPlus;
+    }
+
 }

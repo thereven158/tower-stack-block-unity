@@ -10,8 +10,10 @@ public class CameraHandler : MonoBehaviour
     private Vector3 _tempEnd;
     bool gameNotPlayed = true;
 
-    public GameObject ButtonStart;
-    public GameObject ButtonRetry;
+    GameObject buttonStart;
+    GameObject buttonRetry;
+    GameObject buttonLeaderboard;
+    GameObject buttonChallange;
 
     // Transforms to act as start and end markers for the journey.
     public Transform EndMarker;
@@ -23,8 +25,14 @@ public class CameraHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        buttonStart = GameObject.Find("ButtonStart");
+        buttonRetry = GameObject.Find("ButtonRetry");
+        buttonLeaderboard = GameObject.Find("ButtonLeaderboard");
+        buttonChallange = GameObject.Find("ButtonChallange");
+
+
         _tempEnd = EndMarker.transform.localPosition;
-        ButtonRetry.SetActive(false);
+        buttonRetry.SetActive(false);
         NotPlaying();
     }
 
@@ -68,16 +76,20 @@ public class CameraHandler : MonoBehaviour
     public void Playing()
     {
         Time.timeScale = 1f;
-        ButtonStart.SetActive(false);
+        buttonStart.SetActive(false);
         gameNotPlayed = false;
-        ButtonRetry.SetActive(false);
+        buttonRetry.SetActive(false);
+        buttonLeaderboard.SetActive(false);
+        buttonChallange.SetActive(false);
     }
 
     public void GameOver()
     {
         Time.timeScale = 0f;
         gameNotPlayed = true;
-        ButtonRetry.SetActive(true);
+        buttonRetry.SetActive(true);
+        buttonLeaderboard.SetActive(true);
+        buttonChallange.SetActive(true);
     }
 
     public void Retry()

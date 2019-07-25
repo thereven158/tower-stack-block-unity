@@ -124,8 +124,6 @@ public class CubeCutXOtherVer : MonoBehaviour
                 Vector3 temp = new Vector3(0, 2f, 0);
                 cubeCutLeftPosition.transform.position += temp;
                 cubeCutRightPosition.transform.position += temp;
-                Debug.Log(cubeCutLeftPosition);
-                Debug.Log(cubeCutRightPosition);
             }
             else
             {

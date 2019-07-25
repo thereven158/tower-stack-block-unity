@@ -32,6 +32,7 @@ public class ColorChanges : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            if (Time.timeScale == 0) return;
             hue += 0.02f;
             //rend.material.color = Random.ColorHSV(hue, hue, 0.59f, 0.59f, 0.95f, 0.95f);
             rend.material.color = Color.HSVToRGB(hue, saturation, value);

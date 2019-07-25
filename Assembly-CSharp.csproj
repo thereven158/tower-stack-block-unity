@@ -63,7 +63,9 @@
     <Compile Include="Assets\Imphenzia\GradientSky\Scripts\Common\GradientSkyCommon.cs" />
     <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyCamera.cs" />
     <Compile Include="Assets\Imphenzia\GradientSky\Scripts\GradientSkyObject.cs" />
+    <Compile Include="Assets\Scripts\ButtonHandler.cs" />
     <Compile Include="Assets\Scripts\CameraHandler.cs" />
+    <Compile Include="Assets\Scripts\ChallangeMode.cs" />
     <Compile Include="Assets\Scripts\ColorChanges.cs" />
     <Compile Include="Assets\Scripts\CubeCutX.cs" />
     <Compile Include="Assets\Scripts\CubeCutXOtherVer.cs" />

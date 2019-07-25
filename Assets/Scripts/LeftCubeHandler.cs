@@ -91,4 +91,9 @@ public class LeftCubeHandler : MonoBehaviour
 
         moving = false;
     }
+
+    public void LeftSpeedIncrease(float speedPlus)
+    {
+        speed = speedPlus;
+    }
 }

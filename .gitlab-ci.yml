@@ -1,0 +1,93 @@
+stages: 
+- sonar
+
+#=================== Sonar Stage ===================
+.sonar-template: &sonar-definition
+  stage: sonar
+  tags:
+    - msbuild
+  when: always
+  before_script:
+    - |
+      IF %UNITY_SONAR_VER%==2017 (set GenerateSln=%Unity2017%) ^
+      ElSE (IF %UNITY_SONAR_VER%==2018 (set GenerateSln=%Unity2018%) ^
+      ELSE (set GenerateSln=%GenerateSln%))
+    - set SONAR_SCANNER_OPTS="%SONAR_SCANNER_OPTS%"
+    - |
+      set SONAR_SONARQUBE_REPORT=^
+        /k:"%CI_PROJECT_PATH_SLUG%" ^
+        /n:"%CI_PROJECT_PATH%" ^
+        /d:sonar.host.url="%SONAR_HOST_URL%" ^
+        /d:sonar.login="%SONAR_AUTH_TOKEN%" ^
+        /d:sonar.verbose=false ^
+        /d:sonar.gitlab.commit_sha="%CI_COMMIT_SHA%" ^
+        /d:sonar.gitlab.ref_name="%REPORT_REF_NAME%" ^
+        /d:sonar.gitlab.all_issues="%REPORT_ALLISSUE%" ^
+        /d:sonar.coverage.exclusions="**/SonarScript.cs, **/AutoBuildScript.cs" ^
+        /d:sonar.gitlab.project_id="%CI_PROJECT_ID%"
+    - |
+      set SONAR_GATEGIT_REPORT=^
+        /d:sonar.analysis.mode=preview ^
+        /d:sonar.gitlab.merge_request_discussion=true ^
+        /d:"%REPORT_DISABLE%"="true"
+#UNCOMENT THIS IF U USING MERGE REQUEST PROSEDUR AND ADD ^ IN REPORT_DISABLE#        /d:sonar.gitlab.ci_merge_request_iid="%CI_MERGE_REQUEST_IID%"
+  script:
+    - |
+      "%GenerateSln%" -batchmode -nographics -quit ^
+        -projectPath %cd% ^
+        -CacheServerIPAddress "%UNITY_CACHE_SERVER%" ^
+        -logFile GenerateSln.log ^
+        -executeMethod Agate.Sonarqube.SonarScript.GenerateSln
+    - |
+      IF "%REPORT_ENV%"=="sonar-gategit-report" (
+        "%SONAR_MSBUILD_HOME%\%SONAR_MSBUILD_VER%\SonarScanner.MSBuild" begin %SONAR_SONARQUBE_REPORT% %SONAR_GATEGIT_REPORT%
+      )
+    - |
+      IF "%REPORT_ENV%"=="sonar-sonarqube-report" (
+        "%SONAR_MSBUILD_HOME%\%SONAR_MSBUILD_VER%\SonarScanner.MSBuild" begin %SONAR_SONARQUBE_REPORT%
+      )
+    - MSBuild "%CI_PROJECT_NAME%".sln /t:Rebuild
+    - |
+      "%SONAR_MSBUILD_HOME%\%SONAR_MSBUILD_VER%\SonarScanner.MSBuild" end ^
+        /d:sonar.login="%SONAR_AUTH_TOKEN%"
+    - echo "%REPORT_ENV% DONE"
+  after_script:
+    - rd /s /q .sonarqube
+
+.sonar-artifacts-template:
+  artifacts: &sonar-artifacts-definition
+    name: "sonar-GenerateSln-artifact"
+    paths:
+      - GenerateSln.log
+    when: always
+    expire_in: 1 week
+
+sonar-inline:
+  <<: *sonar-definition
+  variables:
+    REPORT_ENV: "sonar-gategit-report"
+    REPORT_DISABLE: "sonar.gitlab.disable_global_comment"
+    REPORT_ALLISSUE: "false"
+    REPORT_REF_NAME: "$CI_COMMIT_REF_NAME"
+### OTHER EXTEND IF USING MERGE REQUEST PROSEDUR
+#    REPORT_REF_NAME: "$CI_MERGE_REQUEST_REF_PATH"
+#  only:
+#    - merge_request
+###
+  except:
+    - develop
+    - sandbox
+    - staging
+    - master
+  artifacts: *sonar-artifacts-definition
+
+sonar-global:
+  <<: *sonar-definition
+  variables:
+    REPORT_ENV: "sonar-sonarqube-report"
+    REPORT_ALLISSUE: "true"
+    REPORT_REF_NAME: "$CI_COMMIT_REF_NAME"
+  only:
+    - develop
+    - master
+  artifacts: *sonar-artifacts-definition
